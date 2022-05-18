@@ -9,7 +9,6 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    @include('partials.header')
     @yield('content')
     @include('partials.footer')
 </body>

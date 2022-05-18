@@ -25,7 +25,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('posts.admin.create');
+        return view('admin.posts.create');
     }
 
     /**
@@ -38,7 +38,7 @@ class PostController extends Controller
     {
         $data = $request->all();
         $newPost = Post::create($data);
-        return redirect()->route('posts.admin.index');
+        return redirect()->route('admin.posts.index');
     }
 
     /**
@@ -86,6 +86,6 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         $post->delete();
-        return redirect()->route('admin.post.index');
+        return redirect()->route('admin.posts.index');
     }
 }

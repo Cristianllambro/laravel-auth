@@ -21,10 +21,10 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::middleware('auth')
-    ->namespace('admin')
-    ->name('admin')
+    ->namespace('Admin')
+    ->name('admin.')
     ->prefix('admin')
     ->group(function(){
-        Route::get('/', 'Homecontroller@index')->name('home');
+        Route::get('/', 'HomeController@index')->name('home');
         Route::resource('/posts', 'PostController');
     });
