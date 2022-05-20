@@ -40126,6 +40126,17 @@ var app = new Vue({
   el: '#app'
 });
 
+window.confirmDelete = function confirmDelete() {
+  console.log('ciao');
+  var button = confirm("Are you sure you want to delete?");
+
+  if (button) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":

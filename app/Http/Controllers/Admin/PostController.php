@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+    public function getValidator($item) {
+        return 
+        'title' => 'required|max:100',
+        'description' => 'required',
+        'slug' => ['required', Rule::unique('posts')->ignore($item), 'max:100'],
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -36,9 +43,9 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
-        $newPost = Post::create($data);
-        return redirect()->route('admin.posts.index');
+        $data = $request->validate($this->validator);
+        $newPost = Post::create($data->all());
+        return redirect()->route('admin.posts.show', $newPost->slug);
     }
 
     /**
@@ -49,7 +56,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('admin.posts.show');
+        return view('admin.posts.show', compact('post'));
     }
 
     /**
@@ -60,7 +67,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('admin.posts.edit');
+        return view('admin.posts.edit', compact('post'));
     }
 
     /**
@@ -72,9 +79,9 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        $data = $request->all();
+        $data = $request->validate($this->validator);
         $post->update($data);
-        return redirect()->route('admin.posts.show', $post->id);
+        return redirect()->route('admin.posts.show', $post->slug);
     }
 
     /**

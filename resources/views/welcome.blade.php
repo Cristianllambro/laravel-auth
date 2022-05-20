@@ -8,6 +8,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{{asset('css/app.css')}}">
 
         <!-- Styles -->
         <style>
@@ -83,6 +84,7 @@
                 <div class="title m-b-md">
                     Laravel
                 </div>
+                <a href="{{route('admin.posts.create')}}" class="btn btn-primary" >Create Post</a>
 
                 <div class="links">
                     <a href="https://laravel.com/docs">Docs</a>
