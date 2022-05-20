@@ -1,17 +1,22 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+
 use App\Http\Controllers\Controller;
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
+use Illuminate\Routing\Route;
 
 class PostController extends Controller
 {
     public function getValidator($item) {
-        return 
-        'title' => 'required|max:100',
-        'description' => 'required',
-        'slug' => ['required', Rule::unique('posts')->ignore($item), 'max:100'],
+        return [
+            'title' => 'required|max:100',
+            'description' => 'required',
+            'slug' => ['required', Rule::unique('posts')->ignore($item), 'max:100'],
+        ];
     }
 
     /**
@@ -43,9 +48,10 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate($this->validator);
-        $newPost = Post::create($data->all());
-        return redirect()->route('admin.posts.show', $newPost->slug);
+        $data = $request->validate($this->getValidator(null));
+        $newPost  = $request->all() + ['user_id' => Auth::user()->id];
+        $element = Post::create($newPost);
+        return redirect()->route('admin.posts.show', $element->slug);
     }
 
     /**
@@ -79,8 +85,8 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        $data = $request->validate($this->validator);
-        $post->update($data);
+        $request->validate($this->getValidators($post));
+        $post->update($request->all());
         return redirect()->route('admin.posts.show', $post->slug);
     }
 

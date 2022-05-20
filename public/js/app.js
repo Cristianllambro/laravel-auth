@@ -40102,6 +40102,9 @@ module.exports = function(module) {
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
+var _require = __webpack_require__(/*! axios */ "./node_modules/axios/index.js"),
+    Axios = _require["default"];
+
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
@@ -40124,10 +40127,9 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
 
 var app = new Vue({
   el: '#app'
-});
+}); // button delete
 
 window.confirmDelete = function confirmDelete() {
-  console.log('ciao');
   var button = confirm("Are you sure you want to delete?");
 
   if (button) {
@@ -40136,6 +40138,22 @@ window.confirmDelete = function confirmDelete() {
     return false;
   }
 };
+
+var btnSlug = document.getElementById('btn-slugger');
+
+if (btnSlug) {
+  btnSlug.addEventListener('click', function () {
+    var elementSlug = document.querySelector('#slug');
+    var elementTitle = document.querySelector('#title').value;
+    console.log('ciao');
+    Axios.post('Admin/actionSlug', {
+      data: elementTitle
+    }).then(function (response) {
+      elementSlug.value = response.data.slug;
+    });
+    console.log('ciao');
+  });
+}
 
 /***/ }),
 
