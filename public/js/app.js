@@ -40146,7 +40146,7 @@ if (btnSlug) {
     var elementSlug = document.querySelector('#slug');
     var elementTitle = document.querySelector('#title').value;
     console.log('ciao');
-    Axios.post('Admin/actionSlug', {
+    Axios.post('/admin/actionSlug', {
       data: elementTitle
     }).then(function (response) {
       elementSlug.value = response.data.slug;

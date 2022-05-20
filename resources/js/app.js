@@ -50,11 +50,11 @@ if(btnSlug) {
     btnSlug.addEventListener('click', function () {
         const elementSlug = document.querySelector('#slug');
         const elementTitle = document.querySelector('#title').value;
-        console.log('ciao')
+        console.log('ciao');
 
-        Axios.post('Admin/actionSlug', {data: elementTitle}).then(function (response) {
+        Axios.post('/admin/actionSlug', {data: elementTitle}).then(function (response) {
             elementSlug.value = response.data.slug;
         });
-        console.log('ciao')
+        console.log('ciao');
     });
 }
